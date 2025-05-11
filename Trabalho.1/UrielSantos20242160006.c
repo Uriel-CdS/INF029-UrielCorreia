@@ -22,8 +22,9 @@
 // #################################################
 
 #include <stdio.h>
-#include "UrielSantos20242160006.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+#include "UrielSantos20242160006.h"
+#include "functions.h"
 
 DataQuebrada quebraData(char data[]);
 
@@ -92,38 +93,7 @@ int teste(int a)
  */
 int q1(char data[])
 {
-  int datavalida = 1;
-  int dia, mes, ano; 
-  int j = 0, i = 0;
-  char capture[10];
-
-  scanf(" %[^\n]", data);
-
-  //capturando dia
-  while(data[i] != '/'){
-    capture[j++] = data[i++];
-  }
-  capture[j] = '\0';
-  dia = atoi(capture);
-  i++, j = 0;
-
-  //capturando mes
-  while(data[i] != '/'){
-    capture[j++] = data[i++];
-  }
-  capture[j] = '\0';
-  mes = atoi(capture);
-  i++, j = 0;
-  
-  //capturando ano
-  while(data[i] != '\0'){
-    capture[j++] = data[i++];
-  }
-  capture[j] = '\0';
-  ano = atoi(capture);
-  i++, j = 0;
-
-  //printf("%s\n", data);
+  int datavalida = validate(data);
 
   if (datavalida)
       return 1;
