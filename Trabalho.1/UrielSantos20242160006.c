@@ -78,19 +78,7 @@ int teste(int a)
     return val;
 }
 
-/*
- Q1 = validar data
-@objetivo
-    Validar uma data
-@entrada
-    uma string data. Formatos que devem ser aceitos: dd/mm/aaaa, onde dd = dia, mm = mês, e aaaa, igual ao ano. dd em mm podem ter apenas um digito, e aaaa podem ter apenas dois digitos.
-@saida
-    0 -> se data inválida
-    1 -> se data válida
- @restrições
-    Não utilizar funções próprias de string (ex: strtok)   
-    pode utilizar strlen para pegar o tamanho da string
- */
+//Q1 finalizada
 int q1(char data[])
 {
   int datavalida = validate(data);
