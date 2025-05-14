@@ -39,8 +39,7 @@ DataQuebrada quebraData(char data[]);
 @saida
     resultado da soma (x + y)
  */
-int somar(int x, int y)
-{
+int somar(int x, int y){
     int soma;
     soma = x + y;
     return soma;
@@ -57,8 +56,7 @@ int somar(int x, int y)
 @saida
     fatorial de x -> x!
  */
-int fatorial(int x)
-{ //função utilizada para testes
+int fatorial(int x){ //função utilizada para testes
   int i, fat = 1;
     
   for (i = x; i > 1; i--)
@@ -67,8 +65,7 @@ int fatorial(int x)
   return fat;
 }
 
-int teste(int a)
-{
+int teste(int a){
     int val;
     if (a == 2)
         val = 3;
@@ -78,14 +75,88 @@ int teste(int a)
     return val;
 }
 
-//Q1 finalizada
-int q1(char data[])
-{
-  int datavalida = validate(data);
+//>>>>>>Q1 finalizada
+int q1(char data[]){
+   
+   int datavalida = 1;
+   int day, month, age; 
+   int j = 0, i = 0;
+   char capture[10];
 
-  if (datavalida)
+   scanf(" %[^\n]", data);
+
+   //capturando day
+   while(data[i] != '/'){
+   capture[j++] = data[i++];
+   }
+   capture[j] = '\0';
+   day = atoi(capture);
+   i++, j = 0;
+
+   //capturando month
+   while(data[i] != '/'){
+   capture[j++] = data[i++];
+   }
+   capture[j] = '\0';
+   month = atoi(capture);
+   i++, j = 0;
+
+   //capturando age
+   while(data[i] != '\0'){
+   capture[j++] = data[i++];
+   }
+   capture[j] = '\0';
+   age = atoi(capture);
+   i++, j = 0;
+
+   if(age % 4 == 0){
+      switch(month){
+         case 1: case 3: case 5: case 7: case 8: case 10: case 12:{
+               if(day > 31 || day < 0){
+                  datavalida = 0;
+               }
+               break;
+         }
+         case 4: case 6: case 9: case 11:{
+               if(day > 30 || day < 0){
+                  datavalida = 0;
+               }
+               break;
+         }
+         case 2:{
+               if(day > 29 || day < 0){
+                  datavalida = 0;
+               }
+               break;
+         }
+      }
+   } else{
+      switch (month){
+         case 1: case 3: case 5: case 7: case 8: case 10: case 12:{
+               if(day > 31 || day < 0){
+                  datavalida = 0;
+               }
+               break;
+         } 
+         case 4: case 6: case 9: case 11:{
+               if(day > 30 || day < 0){
+                  datavalida = 0;
+               }
+               break;
+         }
+         
+         case 2:{
+               if(day > 28 || day < 0){
+                  datavalida = 0;
+               }
+               break;
+         }
+      } 
+   }
+
+   if (datavalida)
       return 1;
-  else
+   else
       return 0;
 }
 
@@ -131,21 +202,26 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     
 }
 
-/*
- Q3 = encontrar caracter em texto
- @objetivo
-    Pesquisar quantas vezes um determinado caracter ocorre em um texto
- @entrada
-    uma string texto, um caracter c e um inteiro que informa se é uma pesquisa Case Sensitive ou não. Se isCaseSensitive = 1, a pesquisa deve considerar diferenças entre maiúsculos e minúsculos.
-        Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
- @saida
-    Um número n >= 0.
- */
-int q3(char *texto, char c, int isCaseSensitive)
-{
-    int qtdOcorrencias = -1;
+//>>>>>Q3 finalizada
+int q3(char *texto, char c, int isCaseSensitive){
 
-    return qtdOcorrencias;
+   int qtdOcorrencias = 0;
+
+   if(isCaseSensitive == 1){ //considerando diferença entre maiúscula e minúscula
+      for(int i = 0; texto[i] != '\0'; i++){
+         if(texto[i] == c){
+            qtdOcorrencias++;
+         }
+      }
+   } else if(!isCaseSensitive){ //desconsiderando diferença entre maiúscula e minúscula
+      for(int i = 0; texto[i] != '\0'; i++){
+        if((c >= 'A' && c <= 'Z' && (texto[i] == c || texto[i] == c + 32)) ||
+           (c >= 'a' && c <= 'z' && (texto[i] == c || texto[i] == c - 32)))
+            qtdOcorrencias++;
+      }
+   }
+ 
+   return qtdOcorrencias;
 }
 
 /*
