@@ -83,21 +83,6 @@ int validate(char data[]){
     return datavalida;
 }
 
-//Q3
-int searchcar(char string[], char carac_search){
-
-    int idx_search = 0;
-
-    scanf(" %[^\n]", string);
-    scanf("%c", carac_search);
-
-    for(int i = 0; string[i] != '\0'; i++){
-        if(string[i] == carac_search){
-            idx_search++;
-        }
-    }
-    return idx_search;
-}
 
 //Q4
 int searchwor(char string[], char word[]){

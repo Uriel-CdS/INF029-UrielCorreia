@@ -83,11 +83,9 @@ int q1(char data[]){
    int j = 0, i = 0;
    char capture[10];
 
-   scanf(" %[^\n]", data);
-
    //capturando day
    while(data[i] != '/'){
-   capture[j++] = data[i++];
+      capture[j++] = data[i++];
    }
    capture[j] = '\0';
    day = atoi(capture);
@@ -95,7 +93,7 @@ int q1(char data[]){
 
    //capturando month
    while(data[i] != '/'){
-   capture[j++] = data[i++];
+      capture[j++] = data[i++];
    }
    capture[j] = '\0';
    month = atoi(capture);
@@ -103,7 +101,7 @@ int q1(char data[]){
 
    //capturando age
    while(data[i] != '\0'){
-   capture[j++] = data[i++];
+      capture[j++] = data[i++];
    }
    capture[j] = '\0';
    age = atoi(capture);
@@ -154,7 +152,7 @@ int q1(char data[]){
       } 
    }
 
-   if (datavalida)
+   if(datavalida)
       return 1;
    else
       return 0;
@@ -178,6 +176,8 @@ int q1(char data[]){
  */
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
+/*Para calcular a data maior podemos transformar num número invertido,
+ao invés de dd/mm/aaaa, colocamos aaaammdd. */
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
@@ -224,26 +224,22 @@ int q3(char *texto, char c, int isCaseSensitive){
    return qtdOcorrencias;
 }
 
-/*
- Q4 = encontrar palavra em texto
- @objetivo
-    Pesquisar todas as ocorrências de uma palavra em um texto
- @entrada
-    uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que irá guardar as posições de início e fim de cada ocorrência da palavra (strBusca) no texto base (texto).
- @saida
-    Um número n >= 0 correspondente a quantidade de ocorrências encontradas.
-    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
-        posicoes[0] = 13;
-        posicoes[1] = 16;
-        Observe que o índice da posição no texto deve começar ser contado a partir de 1.
-        O retorno da função, n, nesse caso seria 1;
+//>>>>>Q4 finalizada
+int q4(char *strTexto, char *strBusca, int posicoes[30]){
 
- */
-int q4(char *strTexto, char *strBusca, int posicoes[30])
-{
-    int qtdOcorrencias = -1;
+   int qtdOcorrencias = 0;
+   int i = 0, j = 0;
 
-    return qtdOcorrencias;
+   for (i = 0; strTexto[i] != '\0'; i++) {
+      for (j = 0; strBusca[j] != '\0' && strTexto[i + j] == strBusca[j]; j++);
+      
+      if (strBusca[j] == '\0') {
+         posicoes[qtdOcorrencias++] = i;
+         posicoes[qtdOcorrencias++] = i + j - 1;
+      }
+   }
+
+   return qtdOcorrencias / 2;
 }
 
 /*
