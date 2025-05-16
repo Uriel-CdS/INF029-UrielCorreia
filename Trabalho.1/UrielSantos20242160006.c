@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "UrielSantos20242160006.h"
-#include "functions.h"
 
 DataQuebrada quebraData(char data[]);
 
@@ -158,8 +157,6 @@ int q1(char data[]){
       return 0;
 }
 
-
-
 /*
  Q2 = diferença entre duas datas
  @objetivo
@@ -242,38 +239,50 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
    return qtdOcorrencias / 2;
 }
 
-/*
- Q5 = inverte número
- @objetivo
-    Inverter número inteiro
- @entrada
-    uma int num.
- @saida
-    Número invertido
- */
+//>>>>>Q5 finalizada
+int q5(int num){
 
-int q5(int num)
-{
+    char num_ch[100], interm[100];
+    int idx = 0, i;
+
+    sprintf(num_ch, "%d", num);
+
+    while(num_ch[idx] != '\0'){
+        idx++;
+    };
+
+    int idx_2 = idx - 1;
+
+    for(i = 0; i < idx ; i++){
+        interm[i] = num_ch[idx_2--];
+    }
+
+    interm[idx] = '\0';
+
+    num = atoi(interm);
 
     return num;
 }
 
-/*
- Q6 = ocorrência de um número em outro
- @objetivo
-    Verificar quantidade de vezes da ocorrência de um número em outro
- @entrada
-    Um número base (numerobase) e um número de busca (numerobusca).
- @saida
-    Quantidade de vezes que número de busca ocorre em número base
- */
+//>>>>>Q6 finalizada
+int q6(int numerobase, int numerobusca){
 
-int q6(int numerobase, int numerobusca)
-{
-    int qtdOcorrencias;
+    int qtdOcorrencias = 0;
+    char str[100];
+    char str_nbusca[100];
+    int i, j;
+
+    sprintf(str, "%d", numerobase);
+    sprintf(str_nbusca, "%d", numerobusca);
+
+    for(i = 0; str[i] != '\0'; i++){
+        for(j = 0; str_nbusca[j] != '\0' && str[i + j] == str_nbusca[j]; j++);
+        if(str_nbusca[j] == '\0'){
+            qtdOcorrencias++;
+        }
+    }
     return qtdOcorrencias;
 }
-
 /*
  Q7 = jogo busca palavras
  @objetivo
