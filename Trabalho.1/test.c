@@ -44,16 +44,88 @@ int q5(int num)
     return num;
 }
 
+//validando se é um ano bissexto
+int validye(int ano){
+    return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+//passando para a variável mês qual a quantidade de dias
+int daysmonth(int mes, int ano){
+    int dias[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (mes == 2 && validye(ano)){
+        return 29;
+    } return dias[mes - 1];
+}
+
+//separando a string em partes dia, mes, ano
+void extrair(char data[], int *dia, int *mes, int *ano){
+
+    char aux[5];
+    int i = 0, j = 0;
+
+    // Dia
+    while (data[i] != '/') aux[j++] = data[i++];
+    aux[j] = '\0';
+    *dia = atoi(aux);
+
+    // Mês
+    i++, j = 0;
+    while (data[i] != '/') aux[j++] = data[i++];
+    aux[j] = '\0';
+    *mes = atoi(aux);
+
+    // Ano
+    i++, j = 0;
+    while (data[i] != '\0') aux[j++] = data[i++];
+    aux[j] = '\0';
+    *ano = atoi(aux);
+}
+
+int totalDias(int d, int m, int a) {
+
+    int total = d;
+
+    for (int i = 1; i < m; i++) {
+        total += daysmonth(i, a);
+    }
+
+    total += (a - 1) * 365;
+    total += (a - 1) / 4 - (a - 1) / 100 + (a - 1) / 400;
+
+    return total;
+}
+
+int q2(char datainicial[], char datafinal[]){
+
+    int dia1, mes1, ano1;
+    int dia2, mes2, ano2;
+
+    extrair(datainicial, &dia1, &mes1, &ano1);
+    extrair(datafinal, &dia2, &mes2, &ano2);
+
+    // Calcula dias absolutos para cada data
+    int total1 = totalDias(dia1, mes1, ano1);
+    int total2 = totalDias(dia2, mes2, ano2);
+
+    // Retorna a diferença absoluta
+    return abs(total1 - total2);
+}
+
 int main(){
 
-    int num = 0;
+    char d_i[11];
+    char d_f[11];
+    int d_d = 0;
 
-    printf("Informe o número: ");
-    scanf("%d", &num);
+    printf("Informe a data inicial: ");
+    scanf(" %[^\n]", d_i);
 
-    int num_inv = q5(num);
+    printf("Informe a data final: ");
+    scanf(" %[^\n]", d_f);
 
-    printf("\nNúmero invertido: %d", num_inv);
+    d_d = q2(d_i, d_f);
+
+    printf("\nDiferença de dias: %d", d_d);
 
     return 0;
 
