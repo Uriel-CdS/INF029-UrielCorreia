@@ -44,6 +44,14 @@ int q5(int num)
     return num;
 }
 
+
+typedef struct{
+    int dias;
+    int mes;
+    int ano;
+    int retorno;
+} DiasMesesAnos;
+
 //validando se é um ano bissexto
 int validye(int ano){
     return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
@@ -85,17 +93,40 @@ int totalDias(int d, int m, int a) {
 
     int total = d;
 
+    //calculo dos dias no ano atual
     for (int i = 1; i < m; i++) {
         total += daysmonth(i, a);
     }
 
+    //calculo dos dias totais até o início do ano atual
     total += (a - 1) * 365;
     total += (a - 1) / 4 - (a - 1) / 100 + (a - 1) / 400;
 
     return total;
 }
 
-int q2(char datainicial[], char datafinal[]){
+int q1(char data[]) {
+    int dia, mes, ano;
+    extrair(data, &dia, &mes, &ano);
+
+    if (ano < 1 || mes < 1 || mes > 12) return 0;
+
+    int diasMes = daysmonth(mes, ano);
+    if (dia < 1 || dia > diasMes) return 0;
+
+    return 1;
+}
+
+DiasMesesAnos q2(char datainicial[], char datafinal[]) {
+    DiasMesesAnos dma;
+
+    if (q1(datainicial) == 0){
+        dma.retorno = 2;
+        return dma;
+    } else if (q1(datafinal) == 0){
+        dma.retorno = 3;
+        return dma;
+    }
 
     int dia1, mes1, ano1;
     int dia2, mes2, ano2;
@@ -103,19 +134,28 @@ int q2(char datainicial[], char datafinal[]){
     extrair(datainicial, &dia1, &mes1, &ano1);
     extrair(datafinal, &dia2, &mes2, &ano2);
 
-    // Calcula dias absolutos para cada data
     int total1 = totalDias(dia1, mes1, ano1);
     int total2 = totalDias(dia2, mes2, ano2);
 
-    // Retorna a diferença absoluta
-    return abs(total1 - total2);
+    if (total2 < total1) {
+        dma.retorno = 4;
+        return dma;
+    }
+
+    int difDias = total2 - total1;
+
+    dma.ano = difDias / 365;
+    difDias %= 365;
+    dma.mes = difDias / 30;
+    dma.dias = difDias % 30;
+
+    dma.retorno = 1;
+    return dma;
 }
 
 int main(){
-
     char d_i[11];
     char d_f[11];
-    int d_d = 0;
 
     printf("Informe a data inicial: ");
     scanf(" %[^\n]", d_i);
@@ -123,10 +163,17 @@ int main(){
     printf("Informe a data final: ");
     scanf(" %[^\n]", d_f);
 
-    d_d = q2(d_i, d_f);
+    DiasMesesAnos resultado = q2(d_i, d_f);
 
-    printf("\nDiferença de dias: %d", d_d);
+    if (resultado.retorno == 1) {
+        printf("Diferença: %d ano(s), %d mes(es), %d dia(s)\n", resultado.ano, resultado.mes, resultado.dias);
+    } else if (resultado.retorno == 2) {
+        printf("Data inicial inválida.\n");
+    } else if (resultado.retorno == 3) {
+        printf("Data final inválida.\n");
+    } else if (resultado.retorno == 4) {
+        printf("Data final é anterior à data inicial.\n");
+    }
 
     return 0;
-
 }

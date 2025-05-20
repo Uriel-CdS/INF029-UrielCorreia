@@ -157,45 +157,103 @@ int q1(char data[]){
       return 0;
 }
 
-/*
- Q2 = diferença entre duas datas
- @objetivo
-    Calcular a diferença em anos, meses e dias entre duas datas
- @entrada
-    uma string datainicial, uma string datafinal. 
- @saida
-    Retorna um tipo DiasMesesAnos. No atributo retorno, deve ter os possíveis valores abaixo
-    1 -> cálculo de diferença realizado com sucesso
-    2 -> datainicial inválida
-    3 -> datafinal inválida
-    4 -> datainicial > datafinal
-    Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
- */
-DiasMesesAnos q2(char datainicial[], char datafinal[])
-{
-/*Para calcular a data maior podemos transformar num número invertido,
-ao invés de dd/mm/aaaa, colocamos aaaammdd. */
+// Funções para a Q2\/\/\/\/\/
+typedef struct{
+    int dias;
+    int mes;
+    int ano;
+    int retorno;
+} DiasMesesAnos;
 
-   //calcule os dados e armazene nas três variáveis a seguir
+//validando se é um ano bissexto
+int validye(int ano){
+   return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+//passando para a variável mês qual a quantidade de dias
+int daysmonth(int mes, int ano){
+   int dias[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+   if (mes == 2 && validye(ano)){
+      return 29;
+   } return dias[mes - 1];
+}
+
+//separando a string em partes dia, mes, ano
+void extrair(char data[], int *dia, int *mes, int *ano){
+
+   char aux[5];
+   int i = 0, j = 0;
+
+   // Dia
+   while (data[i] != '/') aux[j++] = data[i++];
+   aux[j] = '\0';
+   *dia = atoi(aux);
+
+   // Mês
+   i++, j = 0;
+   while (data[i] != '/') aux[j++] = data[i++];
+   aux[j] = '\0';
+   *mes = atoi(aux);
+
+   // Ano
+   i++, j = 0;
+   while (data[i] != '\0') aux[j++] = data[i++];
+   aux[j] = '\0';
+   *ano = atoi(aux);
+}
+
+int totalDias(int d, int m, int a) {
+
+   int total = d;
+
+   //calculo dos dias no ano atual
+   for (int i = 1; i < m; i++) {
+      total += daysmonth(i, a);
+   }
+
+   //calculo dos dias totais até o início do ano atual
+   total += (a - 1) * 365;
+   total += (a - 1) / 4 - (a - 1) / 100 + (a - 1) / 400;
+
+   return total;
+}
+
+//>>>>>>Q2 finalizada
+DiasMesesAnos q2(char datainicial[], char datafinal[]) {
+   
    DiasMesesAnos dma;
 
    if (q1(datainicial) == 0){
       dma.retorno = 2;
       return dma;
-   }else if (q1(datafinal) == 0){
+   } else if (q1(datafinal) == 0){
       dma.retorno = 3;
       return dma;
-   }else{
-   //verifique se a data final não é menor que a data inicial
+   }
 
-   //calcule a distancia entre as datas
+   int dia1, mes1, ano1;
+   int dia2, mes2, ano2;
 
-   //se tudo der certo
+   extrair(datainicial, &dia1, &mes1, &ano1);
+   extrair(datafinal, &dia2, &mes2, &ano2);
+
+   int total1 = totalDias(dia1, mes1, ano1);
+   int total2 = totalDias(dia2, mes2, ano2);
+
+   if (total2 < total1) {
+      dma.retorno = 4;
+      return dma;
+   }
+
+   int difDias = total2 - total1;
+
+   dma.ano = difDias / 365;
+   difDias %= 365;
+   dma.mes = difDias / 30;
+   dma.dias = difDias % 30;
+
    dma.retorno = 1;
    return dma;
-
-   }
-    
 }
 
 //>>>>>Q3 finalizada
