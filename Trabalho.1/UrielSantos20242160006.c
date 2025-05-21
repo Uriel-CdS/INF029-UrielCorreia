@@ -340,6 +340,7 @@ int q6(int numerobase, int numerobusca){
     }
     return qtdOcorrencias;
 }
+
 /*
  Q7 = jogo busca palavras
  @objetivo
@@ -349,11 +350,10 @@ int q6(int numerobase, int numerobusca){
  @saida
     1 se achou 0 se não achou
  */
-
  int q7(char matriz[8][10], char palavra[5])
  {
-     int achou;
-     return achou;
+   int achou;
+   return achou;
  }
 
 
