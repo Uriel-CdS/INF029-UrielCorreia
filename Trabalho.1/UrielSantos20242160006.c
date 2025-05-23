@@ -25,6 +25,10 @@
 #include <stdlib.h>
 #include "UrielSantos20242160006.h"
 
+#define COLUNA 10
+#define LINHA 8
+#define MAX_PALAVRA 8
+
 DataQuebrada quebraData(char data[]);
 
 /*
@@ -341,22 +345,36 @@ int q6(int numerobase, int numerobusca){
     return qtdOcorrencias;
 }
 
-/*
- Q7 = jogo busca palavras
- @objetivo
-    Verificar se existe uma string em uma matriz de caracteres em todas as direções e sentidos possíves
- @entrada
-    Uma matriz de caracteres e uma string de busca (palavra).
- @saida
-    1 se achou 0 se não achou
- */
- int q7(char matriz[8][10], char palavra[5])
- {
-   int achou;
-   return achou;
- }
+//>>>>>Q7 finalizada
+int q7(char matriz[LINHA][COLUNA], char palavra[MAX_PALAVRA]){
+      
+   int len = strlen(palavra);
+   int direcoes[8][2] = {
+      {0, 1}, {0, -1}, {1, 0}, {-1, 0},
+      {1, 1}, {-1, -1}, {-1, 1}, {1, -1}
+   };
 
+   for (int i = 0; i < LINHA; i++) {
+      for (int j = 0; j < COLUNA; j++) {
+         for (int d = 0; d < 8; d++) {
+               int k;
+               int x = i, y = j;
+               for (k = 0; k < len; k++) {
+                  if (x < 0 || x >= LINHA || y < 0 || y >= COLUNA)
+                     break;
+                  if (matriz[x][y] != palavra[k])
+                     break;
+                  x += direcoes[d][0];
+                  y += direcoes[d][1];
+               }
+               if (k == len)
+                  return 1; // Achou!
+         }
+      }
+   }
 
+   return 0; // Não achou
+}
 
 DataQuebrada quebraData(char data[]){
   DataQuebrada dq;
