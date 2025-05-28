@@ -161,13 +161,7 @@ int q1(char data[]){
       return 0;
 }
 
-// Funções para a Q2\/\/\/\/\/
-typedef struct{
-    int dias;
-    int mes;
-    int ano;
-    int retorno;
-} DiasMesesAnos;
+
 
 //validando se é um ano bissexto
 int validye(int ano){
@@ -251,10 +245,10 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
 
    int difDias = total2 - total1;
 
-   dma.ano = difDias / 365;
+   dma.qtdAnos = difDias / 365;
    difDias %= 365;
-   dma.mes = difDias / 30;
-   dma.dias = difDias % 30;
+   dma.qtdMeses = difDias / 30;
+   dma.qtdDias = difDias % 30;
 
    dma.retorno = 1;
    return dma;
