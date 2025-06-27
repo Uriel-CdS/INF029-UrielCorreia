@@ -17,4 +17,12 @@ void ins_straux(Structure structure[TAM], int position); //criando uma estrutura
 
 int ins_verify(Structure structure[TAM], int position); //verifica se a estrutura auxilair está cheia
 
+void bubble_sort(Structure structure[TAM], int position); //ordenando os valores das estruturas auxiliares
+
+void list_struct(Structure structure[TAM]); //listando todas as estruturas auxiliares
+
+void* gather_allstruct(Structure structure[TAM], int *ptr); //juntando todos os elementos de todas as estr. aux. juntas
+
+void lis_allstruct(Structure structure[TAM]); //listando todos os elementos
+
 #endif 
