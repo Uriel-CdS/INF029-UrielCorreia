@@ -21,8 +21,14 @@ void bubble_sort(Structure structure[TAM], int position); //ordenando os valores
 
 void list_struct(Structure structure[TAM]); //listando todas as estruturas auxiliares
 
-void* gather_allstruct(Structure structure[TAM], int *ptr); //juntando todos os elementos de todas as estr. aux. juntas
+int* gather_allstruct(Structure structure[TAM], int *total); //juntando todos os elementos de todas as estr. aux. juntas
 
 void lis_allstruct(Structure structure[TAM]); //listando todos os elementos
 
-#endif 
+void bbs_allstruct(int *vector, int some); //ordenando todos os elementos
+
+void exclusion(Structure structure[TAM]); //excluindo valor da estrutura auxiliar
+
+int ex_verify(Structure structure[TAM], int position); //verifica se a estrutura auxiliar está vazia ou inexistente
+
+#endif

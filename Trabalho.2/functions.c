@@ -10,7 +10,7 @@ void insertion(Structure structure[TAM]){
     int position;
 
     do{
-        printf("Posicao: ");
+        printf("Qual a posição da estrutura auxiliar: ");
         scanf("%d", &position);
     }while(position >= 10 || position < 0);
 
@@ -102,7 +102,7 @@ void list_struct(Structure structure[TAM]){
     }
 }
 
-void* gather_allstruct(Structure structure[TAM], int *total){
+int* gather_allstruct(Structure structure[TAM], int *total){
 
     int some = 0;
 
@@ -114,7 +114,7 @@ void* gather_allstruct(Structure structure[TAM], int *total){
 
     *total = some;
 
-    int ptr = (int*) malloc (some * sizeof(int));
+    int *ptr = (int*) malloc (some * sizeof(int));
 
     int idx = 0;
 
@@ -126,6 +126,8 @@ void* gather_allstruct(Structure structure[TAM], int *total){
             }
         }
     }
+
+    bbs_allstruct(ptr, some);
 
     return ptr;
 }
@@ -142,13 +144,73 @@ void list_allstruct(Structure structure[TAM]){
 
     printf("Todos os elementos: ");
 
-    for(int i = 0; ptr[i] != '\0'; i++{
+    for(int i = 0; ptr[i] != '\0'; i++){
         printf("%d", ptr[i]);
-        if(ptr[i + 1] != '\0'){
+        if(i < total - 1){
             printf(", ");
         }
     }
     printf("\n");
 
     free(ptr);
+}
+
+void bbs_allstruct(int *vector, int some){
+
+    for(int i = 0; i < some - 1; i++){
+        for(int j = 0; j < some - 1 - i; j++){
+            if(vector[i] > vector[i + 1]){
+                int temp = vector[i + 1];
+                vector[i + 1] = vector[i];
+                vector[i] = temp;
+            }
+        }
+    }
+}
+
+void exclusion(Structure structure[TAM]){
+
+    int position;
+
+    do{
+        printf("\nInforme a posição da estrutura auxiliar: ");
+        scanf("%d", &position);
+    } while (position < 0 || position > 9);
+
+    int verify = 0;
+    
+    if(!ex_verify(structure, position)) return;
+
+    int valor;
+
+    printf("\nInforme o valor que deseja: ");
+    scanf("%d", &valor);
+
+    int find = 0;
+
+    for(int i = 0; i < structure[position].qtd - 1; i++){
+        if(structure[position].data[i] == valor){
+            find = 1;
+
+            for(int j = 0; j < structure[position].qtd - 1; j++){
+                structure[position].data[j] = structure[position].data[j + 1];
+            }
+
+            structure[position].qtd--;
+
+            printf("\nValor %d excluído!\n", valor);
+            break;
+        } 
+    }
+
+    if(!find){
+        printf("\nValor não encontrado!\n");
+    }
+}
+
+int ex_verify(Structure structure[TAM], int position){
+    if(structure[position].qtd == NULL){
+        printf("\nEstrutura auxiliar vazia/inexistente!\n");
+        return 0;
+    } return 1;
 }
