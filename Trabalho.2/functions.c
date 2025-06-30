@@ -214,3 +214,85 @@ int ex_verify(Structure structure[TAM], int position){
         return 0;
     } return 1;
 }
+
+void re_alloc(Structure structure[TAM]){
+
+    int position;
+
+    do{
+        printf("Informe a posicao da estrutura auxiliar: ");
+        scanf("%d", &position); 
+    } while(position < 0 || position > 9);
+
+    if(structure[position].data == NULL){
+        printf("\nEstrutura auxiliar vazia/inexistente\n");
+        return; 
+    }
+
+    int additional;
+
+    do{
+        printf("Informe o numero de posicoes a adicionar: ");
+        scanf("%d", &additional);
+    } while(additional < 0);
+
+    int new_size = structure[position].size + additional; 
+
+    int *new = realloc(structure[position].data, new_size * sizeof(int));
+    if(new == NULL){
+        printf("\nErro ao realocar memória!\n");
+        return;
+    }
+
+    structure[position].data = new;
+    structure[position].size = new_size;
+
+}
+
+void menu(Structure structure[TAM]){
+
+    int choose;
+
+    do{
+        printf("\n1 - Inserir valor;\n"
+                 "2 - Inserir estrutura auxiliar;\n"
+                 "3 - Listar estruturas auxiliares;\n"
+                 "4 - Listar todas os elementos;\n"
+                 "5 - Excluir valor;\n"
+                 "6 - Aumentar tamanho da estrutura auxiliar;\n"
+                 "0 - Sair;\n");
+        printf("\nInforme o que deseja fazer: ");
+        scanf("%d", &choose);
+        
+        switch(choose){
+            case 1:
+                insertion(structure);
+                break;
+            case 2:{
+                int position;
+
+                printf("Informe a posicao da estrutura auxiliar (0 - 9):");
+                scanf("%d", &position);
+                ins_straux(structure, position);
+                break;
+
+            }case 3:
+                list_struct(structure);
+                break;
+            case 4:
+                list_allstruct(structure);
+                break;
+            case 5:
+                exclusion(structure);
+                break;
+            case 6:
+                re_alloc(structure);
+                break;
+            case 0:
+                printf("\nFechando programa...\n");
+                break;
+            default:
+                printf("\nOpcao invalida!\n");
+        }
+    } while(choose != 0);
+}

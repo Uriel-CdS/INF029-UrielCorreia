@@ -23,12 +23,16 @@ void list_struct(Structure structure[TAM]); //listando todas as estruturas auxil
 
 int* gather_allstruct(Structure structure[TAM], int *total); //juntando todos os elementos de todas as estr. aux. juntas
 
-void lis_allstruct(Structure structure[TAM]); //listando todos os elementos
+void list_allstruct(Structure structure[TAM]); //listando todos os elementos
 
 void bbs_allstruct(int *vector, int some); //ordenando todos os elementos
 
 void exclusion(Structure structure[TAM]); //excluindo valor da estrutura auxiliar
 
 int ex_verify(Structure structure[TAM], int position); //verifica se a estrutura auxiliar está vazia ou inexistente
+
+void re_alloc(Structure structure[TAM]); //aumentando a memória de uma estrutura auxiliar
+
+void menu(Structure structure[TAM]); //menu de interação
 
 #endif
