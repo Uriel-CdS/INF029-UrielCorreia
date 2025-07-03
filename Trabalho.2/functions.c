@@ -10,12 +10,12 @@ void insertion(Structure structure[TAM]){
     int position;
 
     do{
-        printf("Qual a posição da estrutura auxiliar: ");
+        printf("\nPosicao da estrutura auxiliar: ");
         scanf("%d", &position);
     }while(position >= 10 || position < 0);
 
     if(structure[position].data == NULL){
-        printf("Estrutura auxiiliar ainda não criada!\n");
+        printf("\nEstrutura auxiliar ainda nao criada!\n");
         ins_straux(structure, position);
     }  
 
@@ -23,7 +23,7 @@ void insertion(Structure structure[TAM]){
 
     int valor;
 
-    printf("Valor a inserir: ");
+    printf("\nValor a inserir: ");
     scanf("%d", &valor);
 
     structure[position].data[structure[position].qtd] = valor;
@@ -38,13 +38,13 @@ void ins_straux(Structure structure[TAM], int position){
     int size;
 
     do{
-        printf("Informe o tamanho total: ");
+        printf("\nInforme o tamanho total: ");
         scanf("%d", &size);
     }while(size < 0);
 
     structure[position].data = (int *) malloc(size * sizeof(int));
     if(structure[position].data == NULL){
-        printf("Erro a alocar memória!\n");
+        printf("\nErro a alocar memória!\n");
         return;
     }
 
@@ -55,7 +55,7 @@ void ins_straux(Structure structure[TAM], int position){
 int ins_verify(Structure structure[TAM], int position){
     
     if(structure[position].qtd >= structure[position].size){
-        printf("Estrutura auxiliar cheia!\n");
+        printf("\nEstrutura auxiliar cheia!\n");
         return 0;
     } return 1;
 }
@@ -79,7 +79,7 @@ void list_struct(Structure structure[TAM]){
 
     for(int i = 0; i < TAM; i++){
         if(structure[i].data == NULL){
-            printf("posição %d: Estrutura auxiliar não criada!", i);
+            printf("\nPosição %d: Estrutura auxiliar não criada!\n", i);
         }
         else {
 
@@ -89,7 +89,7 @@ void list_struct(Structure structure[TAM]){
             printf("\nEstrutura auxiliar da posicao %d\n"
                    ">> Tamanho da estrutura auxiliar: %d\n"
                    ">> Quantidade de elementos na estrutura aux. : %d\n"
-                   ">> Elementos da estrutura aux. : ", i, qtd, size);
+                   ">> Elementos da estrutura aux. : ", i, size, qtd);
 
             for(int j = 0; j < qtd; j++){
                 printf("%d", structure[i].data[j]);
@@ -142,9 +142,9 @@ void list_allstruct(Structure structure[TAM]){
         return;
     }
 
-    printf("Todos os elementos: ");
+    printf("\nTodos os elementos: ");
 
-    for(int i = 0; ptr[i] != '\0'; i++){
+    for(int i = 0; i < total; i++){
         printf("%d", ptr[i]);
         if(i < total - 1){
             printf(", ");
@@ -159,7 +159,7 @@ void bbs_allstruct(int *vector, int some){
 
     for(int i = 0; i < some - 1; i++){
         for(int j = 0; j < some - 1 - i; j++){
-            if(vector[i] > vector[i + 1]){
+            if(vector[j] > vector[j + 1]){
                 int temp = vector[i + 1];
                 vector[i + 1] = vector[i];
                 vector[i] = temp;
@@ -173,7 +173,7 @@ void exclusion(Structure structure[TAM]){
     int position;
 
     do{
-        printf("\nInforme a posição da estrutura auxiliar: ");
+        printf("\nInforme a posicao da estrutura auxiliar: ");
         scanf("%d", &position);
     } while (position < 0 || position > 9);
 
@@ -188,7 +188,7 @@ void exclusion(Structure structure[TAM]){
 
     int find = 0;
 
-    for(int i = 0; i < structure[position].qtd - 1; i++){
+    for(int i = 0; i < structure[position].qtd; i++){
         if(structure[position].data[i] == valor){
             find = 1;
 
@@ -209,7 +209,7 @@ void exclusion(Structure structure[TAM]){
 }
 
 int ex_verify(Structure structure[TAM], int position){
-    if(structure[position].qtd == NULL){
+    if(structure[position].data == NULL || structure[position].qtd == 0){
         printf("\nEstrutura auxiliar vazia/inexistente!\n");
         return 0;
     } return 1;
@@ -220,7 +220,7 @@ void re_alloc(Structure structure[TAM]){
     int position;
 
     do{
-        printf("Informe a posicao da estrutura auxiliar: ");
+        printf("\nInforme a posicao da estrutura auxiliar: ");
         scanf("%d", &position); 
     } while(position < 0 || position > 9);
 
@@ -232,7 +232,7 @@ void re_alloc(Structure structure[TAM]){
     int additional;
 
     do{
-        printf("Informe o numero de posicoes a adicionar: ");
+        printf("\nInforme o numero de posicoes a adicionar: ");
         scanf("%d", &additional);
     } while(additional < 0);
 
@@ -271,7 +271,7 @@ void menu(Structure structure[TAM]){
             case 2:{
                 int position;
 
-                printf("Informe a posicao da estrutura auxiliar (0 - 9):");
+                printf("\nInforme a posicao da estrutura auxiliar (0 - 9):");
                 scanf("%d", &position);
                 ins_straux(structure, position);
                 break;

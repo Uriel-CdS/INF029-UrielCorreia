@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "header.h"
 
-#define TAM 10
-
 int main(){
 
     Structure structure[TAM];
@@ -13,7 +11,13 @@ int main(){
         structure[i].size = 0;
     }
 
-    insertion(structure);
+    menu(structure);
+
+    for (int i = 0; i < TAM; i++) {
+        if (structure[i].data != NULL) {
+            free(structure[i].data);
+        }
+    }
 
     return 0;
 }
